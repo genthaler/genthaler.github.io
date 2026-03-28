@@ -1,4 +1,8 @@
-elm-stuff
-gen
-node_modules
-
+node_modules/
+elm-stuff/
+dist/
+.elm-pages/
+.DS_Store
+**/.DS_Store
+functions/render/elm-pages-cli.mjs
+functions/server-render/elm-pages-cli.mjs
