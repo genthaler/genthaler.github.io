@@ -23,6 +23,7 @@ Commands:
 npm install
 npm start
 npm run build
+npm run deploy
 npm run review
 ```
 
@@ -35,6 +36,22 @@ npx elm-format app src --yes
 npm run review
 npm run build
 ```
+
+## Deploy
+
+Deploy the built site to the `gh-pages` branch of `genthaler/genthaler.github.io` with:
+
+```sh
+npm run deploy
+```
+
+That script:
+
+- runs `npm run build`
+- publishes `dist/` to the `gh-pages` branch
+- targets `git@github.com:genthaler/genthaler.github.io.git`
+
+It assumes you have push access to the GitHub repo and that GitHub Pages is configured to serve from the `gh-pages` branch.
 
 ## Notes
 

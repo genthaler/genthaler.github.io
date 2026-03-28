@@ -35,6 +35,7 @@ This file is for coding agents working in this repo.
 - Use `npm start` for local dev.
 - Use `npm run review` as the lint/review step.
 - Use `npm run build` for production verification.
+- Use `npm run deploy` for the documented GitHub Pages publish flow.
 - If Lamdera reports dependency/cache issues, document the exact command and failure rather than papering over it.
 
 ## Recommended Review Tools
