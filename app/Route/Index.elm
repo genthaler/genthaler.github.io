@@ -1,16 +1,17 @@
 module Route.Index exposing (ActionData, Data, Model, Msg, route)
 
 import BackendTask exposing (BackendTask)
+import Content
 import FatalError exposing (FatalError)
 import Head
 import Head.Seo as Seo
 import Html
+import Html.Attributes as Attr
 import Pages.Url
 import PagesMsg exposing (PagesMsg)
-import Path
-import Route
 import RouteBuilder exposing (App, StatelessRoute)
 import Shared
+import UrlPath
 import View exposing (View)
 
 
@@ -27,7 +28,7 @@ type alias RouteParams =
 
 
 type alias Data =
-    { message : String
+    { page : Content.Page
     }
 
 
@@ -46,9 +47,7 @@ route =
 
 data : BackendTask FatalError Data
 data =
-    BackendTask.succeed Data
-        |> BackendTask.andMap
-            (BackendTask.succeed "Hello!")
+    BackendTask.map Data Content.rootPage
 
 
 head :
@@ -57,16 +56,16 @@ head :
 head app =
     Seo.summary
         { canonicalUrlOverride = Nothing
-        , siteName = "elm-pages"
+        , siteName = "genthaler.github.io"
         , image =
-            { url = [ "images", "icon-png.png" ] |> Path.join |> Pages.Url.fromPath
-            , alt = "elm-pages logo"
+            { url = [ "favicon.ico" ] |> UrlPath.join |> Pages.Url.fromPath
+            , alt = "genthaler.github.io"
             , dimensions = Nothing
             , mimeType = Nothing
             }
-        , description = "Welcome to elm-pages!"
+        , description = app.data.page.description
         , locale = Nothing
-        , title = "elm-pages is running"
+        , title = app.data.page.title
         }
         |> Seo.website
 
@@ -75,14 +74,14 @@ view :
     App Data ActionData RouteParams
     -> Shared.Model
     -> View (PagesMsg Msg)
-view app shared =
-    { title = "elm-pages is running"
+view app _ =
+    { title = app.data.page.title
     , body =
-        [ Html.h1 [] [ Html.text "elm-pages is up and running!" ]
-        , Html.p []
-            [ Html.text <| "The message is: " ++ app.data.message
+        [ Html.section [ Attr.class "page-intro" ]
+            (Content.renderMarkdown app.data.page.body)
+        , Html.p [ Attr.class "primary-action" ]
+            [ Html.a [ Attr.class "button-link", Attr.href "/blog" ]
+                [ Html.text "Read the blog" ]
             ]
-        , Route.Blog__Slug_ { slug = "hello" }
-            |> Route.link [] [ Html.text "My blog post" ]
         ]
     }

@@ -1,46 +1,57 @@
-# README
+# genthaler.github.io
 
-This is a starter to try the elm-pages 3.0 alpha. Any feedback would be very helpful for getting the release ready to go!
+This repo is a rebuilt `elm-pages` v3 site driven by markdown content in `content/`.
 
-You can try this out on Netlify in just a couple of clicks with this button:
+## What it contains
 
-[![Deploy to Netlify](https://www.netlify.com/img/deploy/button.svg)](https://app.netlify.com/start/deploy?repository=https://github.com/dillonkearns/elm-pages-3-alpha-starter)
+- `/` renders `content/index.md`
+- `/blog` renders `content/blog/index.md` plus a list of published posts
+- `/blog/:slug` renders markdown files from `content/blog/`
 
-## Setup Instructions
+The content loader supports both YAML-style and JSON-style frontmatter. Draft posts are excluded from the blog index and generated public post routes.
 
-You can clone this repo with `git clone https://github.com/dillonkearns/elm-pages-3-alpha-starter.git`.
+## Local development
 
-`npm install` from the cloned repo. Before running the dev server or build, make sure to install Lamdera (see below).
+Requirements:
 
-### Install Lamdera
-
-[Install Lamdera with these instructions](https://dashboard.lamdera.app/docs/download).
-
-`elm-pages` 3.0 uses the lamdera compiler, which is a superset of the Elm compiler with some extra functionality to automatically serialize Elm types to Bytes. That means there is no more `OptimizedDecoder` API, you can just use regular `elm/json` Decoders! And no more `DataSource.distill`, since types are now automatically serialized all those optimizations come for free.
-
-### Debugging Lamdera Errors
-
-Sometimes Lamdera will give compiler errors due to corrupted dependency cache. These messages will display a note at the bottom:
-
-```
--- PROBLEM BUILDING DEPENDENCIES ---------------
-
-...
-
-
-Note: Sometimes `lamdera reset` can fix this problem by rebuilding caches, so
-give that a try first.
-```
-
-Be sure to use `lamdera reset` to reset the caches for these cases. See more info about that in the Lamdera docs: https://dashboard.lamdera.app/docs/ides-and-tooling#problem-corrupt-caches
-
-### Docs
-
-Check out [the 3.0 Package Docs](https://package.elm-lang.org/packages/dillonkearns/elm-pages-v3-beta/latest/). The 3.0 docs are still a work in progress. As part of the final release, I will be going through and filling in documentation and updating missing docs. Feel free to make a pull request to update or add docs, or share feedback on the APIs and naming.
-
-You can also use `npx elm-pages docs` from your project to view the documentation for the `RouteBuilder` module.
-
-## Running Scripts with `elm-pages run`
-
+- Node via `asdf` using `.tool-versions`
 - `npm install`
-- `npx elm-pages run script/src/AddRoute.elm User.Id_` - now you can try out the generator! And you can tweak it, or even define new generator modules in the `script/` folder! You can also shorten this command to `npx elm-pages run AddRoute User.Id_` if you prefer.
+
+Commands:
+
+```sh
+npm install
+npm start
+npm run build
+npm run deploy
+npm run format
+npm run review
+```
+
+## Review
+
+Recommended local review flow:
+
+```sh
+npm run format
+npm run review
+npm run build
+```
+
+## Deploy
+
+Deploy the built site to the `gh-pages` branch of `genthaler/genthaler.github.io` with:
+
+```sh
+npm run deploy
+```
+
+That script runs `npm run build` first and then publishes `dist/` to the `gh-pages` branch.
+
+It assumes you have push access to the GitHub repo and that GitHub Pages is configured to serve from the `gh-pages` branch.
+
+## Notes
+
+- This repo currently uses `elm-pages` `^3.3.0`.
+- Some historical post image paths under `/images/article-covers/...` are referenced by content but are not restored in this reboot.
+- For repository workflow and agent-specific guidance, see `AGENTS.md`.

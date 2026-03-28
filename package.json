@@ -1,20 +1,38 @@
 {
-  "name": "elm-pages-app",
+  "name": "genthaler-github-io",
   "type": "module",
   "scripts": {
     "postinstall": "elm-tooling install",
+    "format": "elm-format app src --yes",
+    "review": "elm-review --ignore-dirs .elm-pages",
+    "review:init": "elm-review init",
     "start": "elm-pages dev",
-    "build": "elm-pages build"
+    "build": "elm-pages build",
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d dist"
   },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/genthaler/genthaler-github-io.git"
+  },
+  "keywords": [
+    "elm",
+    "blog"
+  ],
+  "author": "genthaler",
+  "license": "BSD-3-Clause",
+  "bugs": {
+    "url": "https://github.com/genthaler/genthaler-github-io/issues"
+  },
+  "homepage": "https://github.com/genthaler/genthaler-github-io#readme",
   "devDependencies": {
-    "elm-codegen": "^0.3.0",
+    "elm-codegen": "^0.6.3",
     "elm-optimize-level-2": "^0.3.5",
-    "elm-pages": "^3.0.0-beta.34",
-    "elm-review": "^2.10.1",
-    "elm-tooling": "^1.12.0",
-    "vite": "^4.1.1"
-  },
-  "dependencies": {
-    "@netlify/functions": "^1.2.0"
+    "elm-pages": "^3.3.0",
+    "elm-review": "^2.13.5",
+    "elm-tooling": "^1.17.0",
+    "gh-pages": "^6.3.0",
+    "lamdera": "^0.19.1-1.4.0",
+    "vite": "^7.3.1"
   }
 }

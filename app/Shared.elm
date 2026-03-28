@@ -4,12 +4,12 @@ import BackendTask exposing (BackendTask)
 import Effect exposing (Effect)
 import FatalError exposing (FatalError)
 import Html exposing (Html)
-import Html.Events
+import Html.Attributes as Attr
 import Pages.Flags
 import Pages.PageUrl exposing (PageUrl)
-import Path exposing (Path)
 import Route exposing (Route)
 import SharedTemplate exposing (SharedTemplate)
+import UrlPath exposing (UrlPath)
 import View exposing (View)
 
 
@@ -26,7 +26,6 @@ template =
 
 type Msg
     = SharedMsg SharedMsg
-    | MenuClicked
 
 
 type alias Data =
@@ -38,8 +37,7 @@ type SharedMsg
 
 
 type alias Model =
-    { showMenu : Bool
-    }
+    {}
 
 
 init :
@@ -47,7 +45,7 @@ init :
     ->
         Maybe
             { path :
-                { path : Path
+                { path : UrlPath
                 , query : Maybe String
                 , fragment : Maybe String
                 }
@@ -55,8 +53,8 @@ init :
             , pageUrl : Maybe PageUrl
             }
     -> ( Model, Effect Msg )
-init flags maybePagePath =
-    ( { showMenu = False }
+init _ _ =
+    ( {}
     , Effect.none
     )
 
@@ -64,14 +62,11 @@ init flags maybePagePath =
 update : Msg -> Model -> ( Model, Effect Msg )
 update msg model =
     case msg of
-        SharedMsg globalMsg ->
+        SharedMsg _ ->
             ( model, Effect.none )
 
-        MenuClicked ->
-            ( { model | showMenu = not model.showMenu }, Effect.none )
 
-
-subscriptions : Path -> Model -> Sub Msg
+subscriptions : UrlPath -> Model -> Sub Msg
 subscriptions _ _ =
     Sub.none
 
@@ -84,37 +79,27 @@ data =
 view :
     Data
     ->
-        { path : Path
+        { path : UrlPath
         , route : Maybe Route
         }
     -> Model
     -> (Msg -> msg)
     -> View msg
     -> { body : List (Html msg), title : String }
-view sharedData page model toMsg pageView =
+view _ _ _ _ pageView =
     { body =
-        [ Html.nav []
-            [ Html.button
-                [ Html.Events.onClick MenuClicked ]
-                [ Html.text
-                    (if model.showMenu then
-                        "Close Menu"
-
-                     else
-                        "Open Menu"
-                    )
-                ]
-            , if model.showMenu then
-                Html.ul []
-                    [ Html.li [] [ Html.text "Menu item 1" ]
-                    , Html.li [] [ Html.text "Menu item 2" ]
+        [ Html.header [ Attr.class "site-header" ]
+            [ Html.div [ Attr.class "site-header-inner" ]
+                [ Html.a [ Attr.class "site-title", Attr.href "/" ] [ Html.text "genthaler.github.io" ]
+                , Html.nav [ Attr.class "site-nav" ]
+                    [ Html.a [ Attr.href "/" ] [ Html.text "Home" ]
+                    , Html.a [ Attr.href "/blog" ] [ Html.text "Blog" ]
                     ]
-
-              else
-                Html.text ""
+                ]
             ]
-            |> Html.map toMsg
-        , Html.main_ [] pageView.body
+        , Html.main_ [ Attr.class "site-main" ] pageView.body
+        , Html.footer [ Attr.class "site-footer" ]
+            [ Html.text "Built with elm-pages v3 around preserved markdown content." ]
         ]
     , title = pageView.title
     }
