@@ -33,5 +33,13 @@ This file is for coding agents working in this repo.
 ## Verification
 
 - Use `npm start` for local dev.
+- Use `npm run review` as the lint/review step.
 - Use `npm run build` for production verification.
 - If Lamdera reports dependency/cache issues, document the exact command and failure rather than papering over it.
+
+## Recommended Review Tools
+
+- `npm run review`: repo-level static review via `elm-review`
+- `npx elm-format app src --yes`: formatting and low-noise diffs for Elm changes
+- `git status --short` and `git diff --stat`: fast scope check before summaries or commits
+- `rg`: fast text search for finding stale references, route wiring, and content usage

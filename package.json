@@ -4,7 +4,9 @@
   "scripts": {
     "postinstall": "elm-tooling install",
     "start": "elm-pages dev",
-    "build": "elm-pages build"
+    "build": "elm-pages build",
+    "review": "elm-review",
+    "review:init": "elm-review init"
   },
   "devDependencies": {
     "elm-codegen": "^0.6.3",

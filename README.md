@@ -23,6 +23,17 @@ Commands:
 npm install
 npm start
 npm run build
+npm run review
+```
+
+## Review
+
+Recommended local review flow:
+
+```sh
+npx elm-format app src --yes
+npm run review
+npm run build
 ```
 
 ## Notes
