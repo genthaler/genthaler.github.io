@@ -194,7 +194,11 @@ postDecoder slug body =
 
 comparePosts : BlogPost -> BlogPost -> Order
 comparePosts left right =
-    case compare right.published left.published of
+    case
+        compare
+            (Maybe.withDefault "" right.published)
+            (Maybe.withDefault "" left.published)
+    of
         EQ ->
             compare left.slug right.slug
 

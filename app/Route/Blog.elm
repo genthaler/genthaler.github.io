@@ -57,7 +57,7 @@ head :
     App Data ActionData RouteParams
     -> List Head.Tag
 head app =
-    seo app.data.title app.data.description
+    seo app.data.page.title app.data.page.description
 
 
 view :
