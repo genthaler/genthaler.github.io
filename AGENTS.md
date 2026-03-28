@@ -4,9 +4,9 @@ This file is for coding agents working in this repo.
 
 ## Scope
 
-- Treat [`content/`](/Users/bonj/Developer/Elm/genthaler.github.io/content) as the source of truth for site copy.
+- Treat `content/` as the source of truth for site copy.
 - Keep the site structure intentionally small: homepage, blog index, and blog post detail pages.
-- Prefer extending the current content-driven approach in [`src/Content.elm`](/Users/bonj/Developer/Elm/genthaler.github.io/src/Content.elm) instead of reintroducing starter/demo routes.
+- Prefer extending the current content-driven approach in `src/Content.elm` instead of reintroducing starter/demo routes.
 
 ## Content rules
 
@@ -24,11 +24,11 @@ This file is for coding agents working in this repo.
 
 ## Useful files
 
-- [`src/Content.elm`](/Users/bonj/Developer/Elm/genthaler.github.io/src/Content.elm): content loading, normalization, markdown rendering, draft filtering
-- [`app/Route/Index.elm`](/Users/bonj/Developer/Elm/genthaler.github.io/app/Route/Index.elm): homepage
-- [`app/Route/Blog.elm`](/Users/bonj/Developer/Elm/genthaler.github.io/app/Route/Blog.elm): blog index
-- [`app/Route/Blog/Slug_.elm`](/Users/bonj/Developer/Elm/genthaler.github.io/app/Route/Blog/Slug_.elm): blog post route
-- [`app/Shared.elm`](/Users/bonj/Developer/Elm/genthaler.github.io/app/Shared.elm): site shell
+- `src/Content.elm`: content loading, normalization, markdown rendering, draft filtering
+- `app/Route/Index.elm`: homepage
+- `app/Route/Blog.elm`: blog index
+- `app/Route/Blog/Slug_.elm`: blog post route
+- `app/Shared.elm`: site shell
 
 ## Verification
 
