@@ -33,6 +33,7 @@ This file is for coding agents working in this repo.
 ## Verification
 
 - Use `npm start` for local dev.
+- Use `npm run format` before review/build for Elm edits.
 - Use `npm run review` as the lint/review step.
 - Use `npm run build` for production verification.
 - Use `npm run deploy` for the documented GitHub Pages publish flow.
@@ -41,6 +42,6 @@ This file is for coding agents working in this repo.
 ## Recommended Review Tools
 
 - `npm run review`: repo-level static review via `elm-review`
-- `npx elm-format app src --yes`: formatting and low-noise diffs for Elm changes
+- `npm run format`: formatting and low-noise diffs for Elm changes
 - `git status --short` and `git diff --stat`: fast scope check before summaries or commits
 - `rg`: fast text search for finding stale references, route wiring, and content usage
