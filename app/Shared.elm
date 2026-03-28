@@ -53,7 +53,7 @@ init :
             , pageUrl : Maybe PageUrl
             }
     -> ( Model, Effect Msg )
-init flags maybePagePath =
+init _ _ =
     ( {}
     , Effect.none
     )
@@ -62,7 +62,7 @@ init flags maybePagePath =
 update : Msg -> Model -> ( Model, Effect Msg )
 update msg model =
     case msg of
-        SharedMsg globalMsg ->
+        SharedMsg _ ->
             ( model, Effect.none )
 
 
@@ -86,7 +86,7 @@ view :
     -> (Msg -> msg)
     -> View msg
     -> { body : List (Html msg), title : String }
-view sharedData page model toMsg pageView =
+view _ _ _ _ pageView =
     { body =
         [ Html.header [ Attr.class "site-header" ]
             [ Html.div [ Attr.class "site-header-inner" ]
