@@ -15,13 +15,6 @@ This file is for coding agents working in this repo.
 - Do not publish drafts by accident. Draft posts should stay out of the blog index and generated public routes unless the user explicitly asks otherwise.
 - Missing optional metadata or missing referenced images should degrade gracefully.
 
-## Working rules
-
-- New git work should happen on `codex/*` branches. Treat `main` as PR-only.
-- Before suggesting git actions, inspect `git status --short` and the diff scope.
-- Call out unrelated worktree changes before proposing a commit message or commit.
-- Use short imperative commit messages with prefixes like `Feature:`, `Refactor:`, `Fix:`, or `Chore:`.
-
 ## Useful files
 
 - `src/Content.elm`: content loading, normalization, markdown rendering, draft filtering
@@ -43,5 +36,4 @@ This file is for coding agents working in this repo.
 
 - `npm run review`: repo-level static review via `elm-review`
 - `npm run format`: formatting and low-noise diffs for Elm changes
-- `git status --short` and `git diff --stat`: fast scope check before summaries or commits
 - `rg`: fast text search for finding stale references, route wiring, and content usage
