@@ -1,14 +1,17 @@
 module Route.Blog.Slug_ exposing (ActionData, Data, Model, Msg, route)
 
 import BackendTask exposing (BackendTask)
+import Content
 import FatalError exposing (FatalError)
 import Head
 import Head.Seo as Seo
 import Html
+import Html.Attributes as Attr
 import Pages.Url
 import PagesMsg exposing (PagesMsg)
 import RouteBuilder exposing (App, StatelessRoute)
 import Shared
+import UrlPath
 import View exposing (View)
 
 
@@ -36,13 +39,11 @@ route =
 
 pages : BackendTask FatalError (List RouteParams)
 pages =
-    BackendTask.succeed
-        [ { slug = "hello" }
-        ]
+    Content.publishedRouteParams
 
 
 type alias Data =
-    { something : String
+    { post : Content.BlogPost
     }
 
 
@@ -52,8 +53,7 @@ type alias ActionData =
 
 data : RouteParams -> BackendTask FatalError Data
 data routeParams =
-    BackendTask.map Data
-        (BackendTask.succeed "Hi")
+    BackendTask.map Data (Content.postBySlug routeParams.slug)
 
 
 head :
@@ -62,16 +62,16 @@ head :
 head app =
     Seo.summary
         { canonicalUrlOverride = Nothing
-        , siteName = "elm-pages"
+        , siteName = "genthaler.github.io"
         , image =
-            { url = Pages.Url.external "TODO"
-            , alt = "elm-pages logo"
+            { url = [ "favicon.ico" ] |> UrlPath.join |> Pages.Url.fromPath
+            , alt = app.data.post.title
             , dimensions = Nothing
             , mimeType = Nothing
             }
-        , description = "TODO"
+        , description = app.data.post.description
         , locale = Nothing
-        , title = "TODO title" -- metadata.title -- TODO
+        , title = app.data.post.title
         }
         |> Seo.website
 
@@ -80,7 +80,23 @@ view :
     App Data ActionData RouteParams
     -> Shared.Model
     -> View (PagesMsg Msg)
-view app sharedModel =
-    { title = "Placeholder - Blog.Slug_"
-    , body = [ Html.text "You're on the page Blog.Slug_" ]
+view app _ =
+    { title = app.data.post.title
+    , body =
+        [ Html.article [ Attr.class "post-page" ]
+            [ Html.p [ Attr.class "eyebrow" ]
+                [ Html.a [ Attr.href "/blog" ] [ Html.text "Blog" ] ]
+            , Html.h1 [ Attr.class "post-title" ] [ Html.text app.data.post.title ]
+            , Html.p [ Attr.class "post-meta" ]
+                [ Html.text <|
+                    String.join " | "
+                        (List.filterMap identity
+                            [ app.data.post.published
+                            , app.data.post.author
+                            ]
+                        )
+                ]
+            , Html.div [ Attr.class "markdown-body" ] (Content.renderMarkdown app.data.post.body)
+            ]
+        ]
     }
