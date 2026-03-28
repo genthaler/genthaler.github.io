@@ -2,5 +2,6 @@ node_modules/
 elm-stuff/
 dist/
 .elm-pages/
+functions/
 .DS_Store
 **/.DS_Store

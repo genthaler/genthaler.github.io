@@ -3,12 +3,29 @@
   "type": "module",
   "scripts": {
     "postinstall": "elm-tooling install",
+    "review": "elm-review",
+    "review:init": "elm-review init",
     "start": "elm-pages dev",
     "build": "elm-pages build",
-    "deploy": "npm run build && npx gh-pages -d dist -b gh-pages -r git@github.com:genthaler/genthaler.github.io.git --dotfiles",
-    "review": "elm-review",
-    "review:init": "elm-review init"
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d dist"
   },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/genthaler/genthaler-github-io.git"
+  },
+  "keywords": [
+    "elm",
+    "game",
+    "search",
+    "ai"
+  ],
+  "author": "genthaler",
+  "license": "BSD-3-Clause",
+  "bugs": {
+    "url": "https://github.com/genthaler/genthaler-github-io/issues"
+  },
+  "homepage": "https://github.com/genthaler/genthaler-github-io#readme",
   "devDependencies": {
     "elm-codegen": "^0.6.3",
     "elm-optimize-level-2": "^0.3.5",
